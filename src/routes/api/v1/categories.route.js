@@ -7,6 +7,11 @@ router.get(
     categoriesControler.listCategories
 )
 
+router.get(
+    "/list-categories/:category_id",
+    categoriesControler.getcategory
+)
+
 router.post(
     "/add-category",
     categoriesControler.addCategory
