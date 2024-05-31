@@ -6,7 +6,10 @@ const app = express();
 const route = require("./routes/api/v1/index");
 const connectDb = require("./db/mogoosdb");
 
+app.use(express.json());
 app.use("/api/v1", route);
+
+
 
 connectDb();
 

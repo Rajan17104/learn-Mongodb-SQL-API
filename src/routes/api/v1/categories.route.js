@@ -18,12 +18,12 @@ router.post(
 )
 
 router.put(
-    "/update-category",
+    "/update-category/:category_id",
     categoriesControler.updateCategory
 )
 
 router.delete(
-    "/delete-category",
+    "/delete-category/:category_id",
     categoriesControler.deleteCategory
 )
 
