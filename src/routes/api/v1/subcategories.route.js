@@ -7,18 +7,23 @@ router.get(
     subcategoriesControler.listSubCategories
 )
 
+router.get(
+    "/list-subcategories/:subcategory_id",
+    subcategoriesControler.getsubCategory
+)
+
 router.post(
-    "/add-subcategory",
+    "/add-subcategory/:subcategory_id",
     subcategoriesControler.addSubSubCategory
 )
 
 router.put(
-    "/update-subcategory",
+    "/update-subcategory/:subcategory_id",
     subcategoriesControler.updateSubSubCategory
 )
 
 router.delete(
-    "/delete-subcategory",
+    "/delete-subcategory/:subcategory_id",
     subcategoriesControler.deleteSubSubCategory
 )
 
