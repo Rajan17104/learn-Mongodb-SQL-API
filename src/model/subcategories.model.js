@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 
-const subcategoriesSchema = new mongoose({
+const subcategoriesSchema = new mongoose.Schema({
     categories_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Categories",

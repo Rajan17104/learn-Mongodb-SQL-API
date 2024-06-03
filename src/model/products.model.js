@@ -7,6 +7,11 @@ const productsSchema = new mongoose.Schema(
             ref:"Subcategories",
             required:true,
         },
+        seller_id:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Users",
+            required:true,
+        },
         
         name:{
             type: String,

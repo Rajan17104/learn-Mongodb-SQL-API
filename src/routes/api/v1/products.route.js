@@ -7,6 +7,10 @@ router.get(
     "/list-products",
     productController.listProducts
 )
+router.get(
+    "/list-products/:product_id",
+    productController.getProduct
+)
 
 router.post(
     "/add-product",
@@ -14,12 +18,12 @@ router.post(
 )
 
 router.put(
-    "/update-product",
+    "/update-product/:product_id",
     productController.updateProduct
 )
 
 router.delete(
-    "/delete-product",
+    "/delete-product/:product_id",
     productController.deleteProduct
 )
 

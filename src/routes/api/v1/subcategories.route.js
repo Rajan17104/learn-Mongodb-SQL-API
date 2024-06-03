@@ -13,7 +13,7 @@ router.get(
 )
 
 router.post(
-    "/add-subcategory/:subcategory_id",
+    "/add-subcategory",
     subcategoriesControler.addSubSubCategory
 )
 
