@@ -15,10 +15,10 @@ const categoriesSchema = new mongoose.Schema(
             trim:true,
             lowercase:true
         },
-        image:{
-            type: String,
-            required: true,
-        },
+        // image:{
+        //     type: String,
+        //     required: false,
+        // },
         is_active:{
             type:Boolean,
             default:true

@@ -3,7 +3,7 @@ const Categories = require("../model/categories.model");
 const listCategories = async(req,res) =>{
    try {
     const categories = await Categories.find()
-    console.log(categories);
+    // console.log(categories);
 
     if(!categories || categories.length === 0){
         res.status(404).json({
@@ -31,7 +31,7 @@ const listCategories = async(req,res) =>{
         console.log(req.params.category_id);
         const id = req.params.category_id;
         const category = await Categories.findById(id);
-        console.log(category);
+        // console.log(category);
     
         if(!category){
             res.status(404).json({
@@ -56,11 +56,9 @@ const listCategories = async(req,res) =>{
  
  const addCategory = async(req,res) =>{
     try {
-        console.log(req.params.category_id);
-        const id = req.params.category_id;
         const newCategory = req.body;
         const category = await Categories.create(newCategory);
-        console.log(category);
+        // console.log(category);
     
         if(!category){
             res.status(400).json({
@@ -88,9 +86,9 @@ const listCategories = async(req,res) =>{
         console.log(req.params.category_id);
         const id = req.params.category_id;
         const updateData = req.body;
-        console.log(updateData);
+        // console.log(updateData);
         const updatecategory = await Categories.findByIdAndUpdate(id,updateData,{new: true, runValidators: true});
-        console.log(updatecategory);
+        // console.log(updatecategory);
     
         if(!updatecategory){
             res.status(400).json({
@@ -118,7 +116,7 @@ const listCategories = async(req,res) =>{
         console.log(req.params.category_id);
         const id = req.params.category_id;
         const deletedcategory = await Categories.findByIdAndDelete(id);
-        console.log(deletedcategory);
+        // console.log(deletedcategory);
     
         if(!deletedcategory){
             res.status(404).json({

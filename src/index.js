@@ -11,6 +11,6 @@ app.use("/api/v1", route);
 
 connectDb();
 
-app.listen(6000,()=>{
-    console.log("serever created 6000");
+app.listen(9000,()=>{
+    console.log("serever created 9000");
 })
