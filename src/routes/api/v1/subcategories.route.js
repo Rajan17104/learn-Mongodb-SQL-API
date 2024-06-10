@@ -12,6 +12,7 @@ router.get(
     subcategoriesControler.getsubCategory
 )
 
+
 router.post(
     "/add-subcategory",
     subcategoriesControler.addSubSubCategory
@@ -25,6 +26,11 @@ router.put(
 router.delete(
     "/delete-subcategory/:subcategory_id",
     subcategoriesControler.deleteSubSubCategory
+)
+
+router.get(
+    "/filter-subcategories/:category_id",
+    subcategoriesControler.filtersubcategory
 )
 
 module.exports = router;

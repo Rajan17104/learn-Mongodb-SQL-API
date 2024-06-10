@@ -140,6 +140,33 @@ const listSubCategories = async(req,res) =>{
         })
        }
  }
+ const filtersubcategory = async(req,res) =>{
+    try {
+        console.log(req.params.category_id);
+        const id = req.params.category_id;
+        const subCategory = await Subcategories.find({categories_id:id});
+        console.log(subCategory);
+    
+        if(!subCategory){
+            res.status(404).json({
+                message: "No category data found",
+                success: false,  
+            })
+        }
+    
+        res.status(200).json({
+            message: "Categories data fetched successfully",
+            success: true,
+            data: subCategory,
+        })
+    
+       } catch (error) {
+        res.status(500).json({
+            message: 'internal server Error' + error.message,
+            success: false
+        })
+       }
+ }
  
  
  module.exports = {
@@ -147,5 +174,6 @@ const listSubCategories = async(req,res) =>{
      addSubSubCategory,
      updateSubSubCategory,
      deleteSubSubCategory,
-     getsubCategory
+     getsubCategory,
+     filtersubcategory
  }
