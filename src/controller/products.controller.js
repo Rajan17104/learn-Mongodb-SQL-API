@@ -1,4 +1,5 @@
 const Products = require("../model/products.model");
+const fileupload = require("../utils/cloudinary");
 
 const listProducts = async (req, res) => {
     try {
@@ -53,29 +54,41 @@ const getProduct = async (req, res) => {
 }
 
 const addProduct = async (req, res) => {
+
+    console.log(req.body);
+    console.log(req.file);
+
     try {
-        const newData = req.body;
-        const product = await Products.create(newData);
-        console.log(product);
+        const fileRes = await fileupload("Product_Img",req.file.path)
 
-        if (!product) {
-            res.status(400).json({
-                message: "product can not created",
-                success: false,
-            })
-        }
-
-        res.status(201).json({
-            message: "New product created successfully",
-            success: true,
-            data: product,
-        })
+        console.log(fileRes);
     } catch (error) {
-        res.status(500).json({
-            message: 'internal server Error' + error.message,
-            success: false
-        });
+        
     }
+
+    // try {
+    //     const newData = req.body;
+    //     const product = await Products.create(newData);
+    //     console.log(product);
+
+    //     if (!product) {
+    //         res.status(400).json({
+    //             message: "product can not created",
+    //             success: false,
+    //         })
+    //     }
+
+    //     res.status(201).json({
+    //         message: "New product created successfully",
+    //         success: true,
+    //         data: product,
+    //     })
+    // } catch (error) {
+    //     res.status(500).json({
+    //         message: 'internal server Error' + error.message,
+    //         success: false
+    //     });
+    // }
 }
 
 const updateProduct = async (req, res) => {

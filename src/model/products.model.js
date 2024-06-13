@@ -2,16 +2,16 @@ const mongoose = require("mongoose");
 
 const productsSchema = new mongoose.Schema(
     { 
-        category_id:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"Categories",
-            required:true,
-        },
-        subcategory_id:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"Subcategories",
-            required:true,
-        },
+        // category_id:{
+        //     type:mongoose.Schema.Types.ObjectId,
+        //     ref:"Categories",
+        //     required:true,
+        // },
+        // subcategory_id:{
+        //     type:mongoose.Schema.Types.ObjectId,
+        //     ref:"Subcategories",
+        //     required:true,
+        // },
         // seller_id:{
         //     type:mongoose.Schema.Types.ObjectId,
         //     ref:"Users",
@@ -31,15 +31,18 @@ const productsSchema = new mongoose.Schema(
             trim:true,
             lowercase:true
         },
-        // image:{
-        //     type: String,
-        //     required: true,
-        // },
-        price :{
-            type: Number,
-            required : true,
-
+        image:{
+            type: {
+                public_id : String,
+                url : String
+            },
+            required: true,
         },
+        // price :{
+        //     type: Number,
+        //     required : true,
+
+        // },
         is_active:{
             type:Boolean,
             default:true
