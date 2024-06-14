@@ -3,7 +3,7 @@ const Subcategories = require("../model/subcategories.model");
 const listSubCategories = async(req,res) =>{
     try {
         const subCategories = await Subcategories.find()
-        console.log(subCategories);
+        // console.log(subCategories);
     
         if(!subCategories || subCategories.length === 0){
             res.status(404).json({
@@ -145,7 +145,7 @@ const listSubCategories = async(req,res) =>{
         console.log(req.params.category_id);
         const id = req.params.category_id;
         const subCategory = await Subcategories.find({categories_id:id});
-        console.log(subCategory);
+        // console.log(subCategory);
     
         if(!subCategory){
             res.status(404).json({

@@ -15,7 +15,7 @@ router.get(
 
 router.post(
     "/add-product",
-    upload.single("image"),
+    upload.single("product_image"),
     productController.addProduct
 )
 

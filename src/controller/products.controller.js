@@ -4,7 +4,7 @@ const fileupload = require("../utils/cloudinary");
 const listProducts = async (req, res) => {
     try {
         const products = await Products.find()
-        console.log(products);
+        // console.log(products);
 
         if (!products || products.length === 0) {
             res.status(404).json({
@@ -31,7 +31,7 @@ const getProduct = async (req, res) => {
     try {
         const id = req.params.product_id;
         const product = await Products.findById(id);
-        console.log(product);
+        // console.log(product);
 
         if (!product) {
             res.status(404).json({
@@ -59,36 +59,38 @@ const addProduct = async (req, res) => {
     console.log(req.file);
 
     try {
-        const fileRes = await fileupload("Product_Img",req.file.path)
-
+        const fileRes = await fileupload("Product_Img", req.file.path)
         console.log(fileRes);
+
+        const newData = {
+            ...req.body,
+            product_image: {
+                public_id: fileRes.public_id,
+                url: fileRes.url
+            }
+        }
+        console.log(newData);
+        const product = await Products.create(newData);
+        console.log(product);
+
+        if (!product) {
+            res.status(400).json({
+                message: "product can not created",
+                success: false,
+            })
+        }
+
+        res.status(201).json({
+            message: "New product created successfully",
+            success: true,
+            data: product,
+        })
     } catch (error) {
-        
+        res.status(500).json({
+            message: 'internal server Error' + error.message,
+            success: false
+        });
     }
-
-    // try {
-    //     const newData = req.body;
-    //     const product = await Products.create(newData);
-    //     console.log(product);
-
-    //     if (!product) {
-    //         res.status(400).json({
-    //             message: "product can not created",
-    //             success: false,
-    //         })
-    //     }
-
-    //     res.status(201).json({
-    //         message: "New product created successfully",
-    //         success: true,
-    //         data: product,
-    //     })
-    // } catch (error) {
-    //     res.status(500).json({
-    //         message: 'internal server Error' + error.message,
-    //         success: false
-    //     });
-    // }
 }
 
 const updateProduct = async (req, res) => {
@@ -117,30 +119,30 @@ const updateProduct = async (req, res) => {
     }
 }
 
-const deleteProduct = async(req, res) => {
-   try {
-    const id = req.params.product_id;
-    const deleteproduct = await Products.findByIdAndDelete(id);
+const deleteProduct = async (req, res) => {
+    try {
+        const id = req.params.product_id;
+        const deleteproduct = await Products.findByIdAndDelete(id);
 
-    if(!deleteproduct){
-        res.status(400).json({
-            message: "No product data found or Your request due to malformed syntax, missing parameters, etc",
-            success: false,
+        if (!deleteproduct) {
+            res.status(400).json({
+                message: "No product data found or Your request due to malformed syntax, missing parameters, etc",
+                success: false,
 
+            })
+        }
+        res.status(200).json({
+            message: "Product delete successfully",
+            success: true,
+            data: deleteproduct,
         })
-    }
-    res.status(200).json({
-        message: "Product delete successfully",
-        success: true,
-        data: deleteproduct,
-    })
 
-   } catch (error) {
-    res.status(500).json({
-        message: 'internal server Error' + error.message,
-        success: false
-    });
-   }
+    } catch (error) {
+        res.status(500).json({
+            message: 'internal server Error' + error.message,
+            success: false
+        });
+    }
 }
 
 
