@@ -95,8 +95,32 @@ const addProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     try {
+        // console.log(req);
+        // console.log("dfsdfdf",req.body);
+
         const id = req.params.product_id;
-        const newData = req.body;
+
+        let newData = '';
+
+        if (req.file) {
+            const fileRes = await fileupload("Product_Img", req.file.path)
+            console.log(fileRes);
+
+            newData = {
+                ...req.body,
+                product_image: {
+                    public_id: fileRes.public_id,
+                    url: fileRes.url
+                }
+            }
+
+        } else {
+            newData = req.body;
+        }
+
+        console.log(newData);
+
+
         const updateproduct = await Products.findByIdAndUpdate(id, newData, { new: true, runValidators: true })
         console.log(updateproduct);
         if (!updateproduct) {

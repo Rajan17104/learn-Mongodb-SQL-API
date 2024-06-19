@@ -15,12 +15,13 @@ router.get(
 
 router.post(
     "/add-product",
-    upload.single("product_image"),
+    upload.single("product_image"),  // for image important
     productController.addProduct
 )
 
 router.put(
     "/update-product/:product_id",
+    upload.single("product_image"),    // for image important
     productController.updateProduct
 )
 
