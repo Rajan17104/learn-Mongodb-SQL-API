@@ -33,4 +33,9 @@ router.get(
     subcategoriesControler.filtersubcategory
 )
 
+router.get(
+    "/countProducts",
+    subcategoriesControler.countproducts
+)
+
 module.exports = router;

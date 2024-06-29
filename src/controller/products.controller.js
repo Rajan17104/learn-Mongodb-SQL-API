@@ -169,11 +169,65 @@ const deleteProduct = async (req, res) => {
     }
 }
 
+const countproducts = async (req, res) => {
+    try {
+        const id = req.params.product_id;
+        const count_product = await Products.aggregate(
+            [
+                {
+                  $lookup: {
+                    from: "categories",
+                    localField: "category_id",
+                    foreignField: "_id",
+                    as: "category"
+                  }
+                },
+                {
+                  $unwind: {
+                    path: "$category",
+                   
+                  }
+                },
+                {
+                  $group: {
+                    _id: "$category_id",
+                    nameofCategory : {$first : "$category.name"},
+                    nameofProduct : {$first : "$name"},
+                    countproduct: {
+                      $sum: 1
+                    }
+                  }
+                }
+              ]
+        );
+
+        if (!count_product) {
+            res.status(400).json({
+                message: "No product data found or Your request due to malformed syntax, missing parameters, etc",
+                success: false,
+
+            })
+        }
+        res.status(200).json({
+            message: "Product successfully",
+            success: true,
+            data: count_product,
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            message: 'internal server Error' + error.message,
+            success: false
+        });
+    }
+}
+
 
 module.exports = {
     listProducts,
     addProduct,
     updateProduct,
     deleteProduct,
-    getProduct
+    getProduct,
+    countproducts
 }

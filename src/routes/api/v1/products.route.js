@@ -30,4 +30,9 @@ router.delete(
     productController.deleteProduct
 )
 
+router.get(
+    "/count-categories",
+    productController.countproducts
+)
+
 module.exports = router;

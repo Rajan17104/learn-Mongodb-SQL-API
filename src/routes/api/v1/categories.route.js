@@ -27,4 +27,9 @@ router.delete(
     categoriesControler.deleteCategory
 )
 
+router.get(
+    "/count-subcategory",
+    categoriesControler.countSubcategory
+)
+
 module.exports = router;

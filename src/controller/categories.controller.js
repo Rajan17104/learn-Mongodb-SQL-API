@@ -139,10 +139,63 @@ const listCategories = async(req,res) =>{
        }
  }
 
+ const countSubcategory = async(req,res)=>{
+    try {
+        const countSubcategories = await Categories.aggregate(
+            [
+                {
+                  $lookup: {
+                    from: "subcategories",
+                    localField: "_id",
+                    foreignField: "categories_id",
+                    as: "subCategories"
+                  }
+                }
+                ,
+                {
+                  $unwind: {
+                    path: "$subCategories",
+                  }
+                },
+                {
+                  $group: {
+                    _id: "$_id",
+                    categoryName : {$first : "$name"},
+                    CountSubcategory: {
+                      $sum: 1
+                    }
+                  }
+                }
+              ]
+        );
+        console.log(countSubcategories);
+    
+        if(!countSubcategories){
+            res.status(404).json({
+                message: "No category data found",
+                success: false,  
+            })
+        }
+    
+        res.status(200).json({
+            message: "count subcategory get",
+            success: true,
+            data: countSubcategories,
+        })
+    
+       } catch (error) {
+        res.status(500).json({
+            message: 'internal server Error' + error.message,
+            success: false
+        })
+       }
+ }
+
  module.exports = {
      listCategories,
      addCategory,
      updateCategory,
      deleteCategory,
-     getcategory
+     getcategory,
+     countSubcategory,
  }
