@@ -1,0 +1,198 @@
+[
+    {
+        product_id: ObjectId("product_id_oranges"),
+        category_id: ObjectId("category_id_fruits"),
+        subcategory_id: ObjectId("subcategory_id_citrus_fruits"),
+        attributes: {
+            price: "$0.99 per piece",
+            stock: 100,
+            variants: ["Navel", "Blood Orange"],
+            discount: "10% off"
+        },
+        is_active: true
+    },
+    {
+        product_id: ObjectId("product_id_lemons"),
+        category_id: ObjectId("category_id_fruits"),
+        subcategory_id: ObjectId("subcategory_id_citrus_fruits"),
+        attributes: {
+            price: "$0.79 per piece",
+            stock: 80,
+            variants: ["Meyer", "Eureka"],
+            discount: null // No discount for lemons
+        },
+        is_active: true
+    },
+    {
+        product_id: ObjectId("product_id_strawberries"),
+        category_id: ObjectId("category_id_fruits"),
+        subcategory_id: ObjectId("subcategory_id_berries"),
+        attributes: {
+            price: "$2.99 per pint",
+            stock: 50,
+            variants: ["Organic", "Conventional"],
+            discount: "$1.00 off per pint"
+        },
+        is_active: true
+    },
+    {
+        product_id: ObjectId("product_id_blueberries"),
+        category_id: ObjectId("category_id_fruits"),
+        subcategory_id: ObjectId("subcategory_id_berries"),
+        attributes: {
+            price: "$3.49 per pint",
+            stock: 40,
+            variants: ["Wild", "Cultivated"],
+            discount: "5% off"
+        },
+        is_active: true
+    },
+    // Vegetables
+    {
+        product_id: ObjectId("product_id_spinach"),
+        category_id: ObjectId("category_id_vegetables"),
+        subcategory_id: ObjectId("subcategory_id_leafy_greens"),
+        attributes: {
+            price: "$1.99 per bunch",
+            stock: 60,
+            variants: ["Baby", "Savoy"],
+            discount: null // No discount for spinach
+        },
+        is_active: true
+    },
+    {
+        product_id: ObjectId("product_id_carrots"),
+        category_id: ObjectId("category_id_vegetables"),
+        subcategory_id: ObjectId("subcategory_id_root_vegetables"),
+        attributes: {
+            price: "$0.69 per pound",
+            stock: 120,
+            variants: ["Orange", "Purple"],
+            discount: "15% off"
+        },
+        is_active: true
+    },
+    {
+        product_id: ObjectId("product_id_broccoli"),
+        category_id: ObjectId("category_id_vegetables"),
+        subcategory_id: ObjectId("subcategory_id_cruciferous_vegetables"),
+        attributes: {
+            price: "$1.49 per pound",
+            stock: 70,
+            variants: ["Regular", "Baby"],
+            discount: null // No discount for broccoli
+        },
+        is_active: true
+    },
+    {
+        product_id: ObjectId("product_id_onions"),
+        category_id: ObjectId("category_id_vegetables"),
+        subcategory_id: ObjectId("subcategory_id_allium_vegetables"),
+        attributes: {
+            price: "$0.89 per pound",
+            stock: 100,
+            variants: ["Yellow", "Red"],
+            discount: "10% off"
+        },
+        is_active: true
+    },
+    // Herbs
+    {
+        product_id: ObjectId("product_id_basil"),
+        category_id: ObjectId("category_id_herbs"),
+        subcategory_id: ObjectId("subcategory_id_fresh_herbs"),
+        attributes: {
+            price: "$0.99 per bunch",
+            stock: 50,
+            variants: ["Genovese", "Thai"],
+            discount: null // No discount for basil
+        },
+        is_active: true
+    },
+    {
+        product_id: ObjectId("product_id_oregano"),
+        category_id: ObjectId("category_id_herbs"),
+        subcategory_id: ObjectId("subcategory_id_dried_herbs"),
+        attributes: {
+            price: "$0.79 per ounce",
+            stock: 30,
+            variants: ["Greek", "Mexican"],
+            discount: "20% off"
+        },
+        is_active: true
+    },
+    // Organic Produce
+    {
+        product_id: ObjectId("product_id_organic_apples"),
+        category_id: ObjectId("category_id_organic_produce"),
+        subcategory_id: ObjectId("subcategory_id_organic_fruits"),
+        attributes: {
+            price: "$1.29 per pound",
+            stock: 80,
+            variants: ["Gala", "Fuji"],
+            discount: "5% off"
+        },
+        is_active: true
+    },
+    {
+        product_id: ObjectId("product_id_organic_carrots"),
+        category_id: ObjectId("category_id_organic_produce"),
+        subcategory_id: ObjectId("subcategory_id_organic_vegetables"),
+        attributes: {
+            price: "$1.19 per pound",
+            stock: 90,
+            variants: ["Orange", "Rainbow"],
+            discount: null // No discount for organic carrots
+        },
+        is_active: true
+    },
+    // Seasonal Produce
+    {
+        product_id: ObjectId("product_id_asparagus"),
+        category_id: ObjectId("category_id_seasonal_produce"),
+        subcategory_id: ObjectId("subcategory_id_spring"),
+        attributes: {
+            price: "$2.49 per pound",
+            stock: 40,
+            variants: ["Green", "Purple"],
+            discount: "10% off"
+        },
+        is_active: true
+    },
+    {
+        product_id: ObjectId("product_id_watermelons"),
+        category_id: ObjectId("category_id_seasonal_produce"),
+        subcategory_id: ObjectId("subcategory_id_summer"),
+        attributes: {
+            price: "$4.99 each",
+            stock: 30,
+            variants: ["Seedless", "Seeded"],
+            discount: null // No discount for watermelons
+        },
+        is_active: true
+    },
+    {
+        product_id: ObjectId("product_id_pumpkins"),
+        category_id: ObjectId("category_id_seasonal_produce"),
+        subcategory_id: ObjectId("subcategory_id_fall"),
+        attributes: {
+            price: "$6.99 each",
+            stock: 25,
+            variants: ["Jack-o'-lantern", "Sugar Pie"],
+            discount: "15% off"
+        },
+        is_active: true
+    },
+    {
+        product_id: ObjectId("product_id_citrus_fruits"),
+        category_id: ObjectId("category_id_seasonal_produce"),
+        subcategory_id: ObjectId("subcategory_id_winter"),
+        attributes: {
+            price: "$0.79 per piece",
+            stock: 200,
+            variants: ["Orange", "Grapefruit"],
+            discount: null // No discount for citrus fruits
+        },
+        is_active: true
+    }
+]

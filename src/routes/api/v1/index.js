@@ -11,6 +11,9 @@ router.use("/subcategories",subcategoriesRouter);
 const productRouter = require("./products.route")
 router.use("/products",productRouter);
 
+const variantRouter = require("./variants.routs")
+router.use("/variants",variantRouter);
+
 module.exports = router;
 
 

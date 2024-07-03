@@ -1,44 +1,38 @@
 const mongoose = require("mongoose");
 
-const attributesSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    require: true,
-    unique: true,
-  },
-  value: {
-    type: String,
-    require: true,
-  },
-  price: {
-    type: Number,
-    require: true,
-  },
-  stock: {
-    type: Number,
-    require: true,
-  },
-});
-
-const varinatsSchema = new mongoose.Schema(
-  {
-    productId: {
-      type: mongoose.Types.ObjectId,
-      ref: "Product",
-      require: true,
+const variantsSchema = new mongoose.Schema(
+    {
+        product_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Products",
+            required: true,
+        },
+        category_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Categories",
+            required: true,
+        },
+        subcategory_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Subcategories",
+            required: true,
+        },
+        attributes: {
+            type: Object,
+            of: String,
+            required: true,
+        },
+        is_active: {
+            type: Boolean,
+            default: true,
+        },
     },
-    attributes: [attributesSchema],
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  {
-    timestamps: true,
-    versionKey: false,
-  }
+    {
+        timestamps: true,
+        versionKey: false,
+    }
 );
 
-const Variants = mongoose.model('Variants', varinatsSchema);
+const Variants = mongoose.model("Variants", variantsSchema);
 
 module.exports = Variants;

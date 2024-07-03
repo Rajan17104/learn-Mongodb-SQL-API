@@ -191,6 +191,191 @@ const listCategories = async(req,res) =>{
        }
  }
 
+ const totalActivecategory = async(req,res)=>{
+    try {
+        const activeCategory = await Categories.aggregate(
+            [
+                {
+                  $match: {
+                    is_active : true
+                  }
+                },
+                {
+                  $count: 'Total no of Active Catetogry'
+                }
+              ]
+        );
+        console.log(activeCategory);
+    
+        if(!countSubcategories){
+            res.status(404).json({
+                message: "No category data found",
+                success: false,  
+            })
+        }
+    
+        res.status(200).json({
+            message: "count Active Category get",
+            success: true,
+            data: activeCategory,
+        })
+    
+       } catch (error) {
+        res.status(500).json({
+            message: 'internal server Error' + error.message,
+            success: false
+        })
+       }
+ }
+
+ const highest_number_products = async(req,res)=>{
+    try {
+        const highestNoproduct = await Categories.aggregate(
+            [
+                {
+                  $lookup: {
+                    from: "products",
+                    localField: "_id",
+                    foreignField: "category_id",
+                    as: "products"
+                  }
+                },
+                 {
+                   $unwind: {
+                     path: "$products",
+                   }
+                 },
+                 {
+                   $group: {
+                     _id: "$_id",
+                      Highest_number_products: {
+                       $sum: 1
+                     }
+                   }
+                 },
+                 {
+                   $sort: {
+                   Highest_number_products: -1
+                 }
+                 },
+                 {
+                   $limit: 1
+                 }
+               ]
+        );
+        console.log(highestNoproduct);
+    
+        if(!highestNoproduct){
+            res.status(404).json({
+                message: "No category data found",
+                success: false,  
+            })
+        }
+    
+        res.status(200).json({
+            message: "count Active Category get",
+            success: true,
+            data: highestNoproduct,
+        })
+    
+       } catch (error) {
+        res.status(500).json({
+            message: 'internal server Error' + error.message,
+            success: false
+        })
+       }
+ }
+
+ const number_products_perCategory = async(req,res)=>{
+    try {
+        const highestNoproduct = await Categories.aggregate(
+            [
+                {
+                  $lookup: {
+                    from: "products",
+                    localField: "_id",
+                    foreignField: "category_id",
+                    as: "products"
+                  }
+                },
+                 {
+                   $unwind: {
+                     path: "$products",
+                   }
+                 }
+                 ,
+                 {
+                   $group: {
+                     _id: "$_id",
+                     categroy_id : {$first : "$_id"},
+                      average_number_of_products_per_category: {
+                       $sum: 1
+                     }
+                   }
+                 }
+               ]
+        );
+        console.log(highestNoproduct);
+    
+        if(!highestNoproduct){
+            res.status(404).json({
+                message: "No category data found",
+                success: false,  
+            })
+        }
+    
+        res.status(200).json({
+            message: "count Active Category get",
+            success: true,
+            data: highestNoproduct,
+        })
+    
+       } catch (error) {
+        res.status(500).json({
+            message: 'internal server Error' + error.message,
+            success: false
+        })
+       }
+ }
+
+ const totalInActivecategory = async(req,res)=>{
+    try {
+        const InactiveCategory = await Categories.aggregate(
+            [
+                {
+                  $match: {
+                    is_active : false
+                  }
+                },
+                {
+                  $count: 'Total no of Active Catetogry'
+                }
+              ]
+        );
+        console.log(InactiveCategory);
+    
+        if(!InactiveCategory){
+            res.status(404).json({
+                message: "No category data found",
+                success: false,  
+            })
+        }
+    
+        res.status(200).json({
+            message: "count InActive Category get",
+            success: true,
+            data: InactiveCategory,
+        })
+    
+       } catch (error) {
+        res.status(500).json({
+            message: 'internal server Error' + error.message,
+            success: false
+        })
+       }
+ }
+
+
  module.exports = {
      listCategories,
      addCategory,
@@ -198,4 +383,8 @@ const listCategories = async(req,res) =>{
      deleteCategory,
      getcategory,
      countSubcategory,
+     totalActivecategory,
+     highest_number_products,
+     number_products_perCategory,
+     totalInActivecategory
  }

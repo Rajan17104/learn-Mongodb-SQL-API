@@ -32,4 +32,22 @@ router.get(
     categoriesControler.countSubcategory
 )
 
+router.get(
+    "/count-active",
+    categoriesControler.totalActivecategory
+)
+
+router.get(
+    "/most-products",
+    categoriesControler.highest_number_products
+)
+router.get(
+    "/average-products",
+    categoriesControler.number_products_perCategory
+)
+router.get(
+    "/inactive",
+    categoriesControler.totalInActivecategory
+)
+
 module.exports = router;
