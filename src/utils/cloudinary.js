@@ -13,7 +13,7 @@ const fileupload = async(folderName, imgUrl) =>{
         const uploadResult = await cloudinary.uploader.upload(imgUrl, {
             folder : folderName
         }).catch((error)=>{console.log(error)});
-        console.log(uploadResult);
+        // console.log(uploadResult);
 
         return uploadResult
     } catch (error) {

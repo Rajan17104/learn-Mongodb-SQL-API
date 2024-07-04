@@ -1,7 +1,6 @@
 const express = require("express");
 const { variantController } = require("../../../controller");
-
-
+const upload = require("../../../middleware/upload");
 
 const app = express();
 const router = express.Router();
@@ -16,10 +15,12 @@ router.get("/list-varients/:varients_id",
 );
 
 router.post("/add-varients",
+    upload.array('pro_img', 5),
     variantController.addVarients
 );
 
 router.put("/update-varients/:varients_id",
+    upload.array('pro_img', 5),
     variantController.updateVarients
 
 );
