@@ -2,32 +2,32 @@ const mongoose = require("mongoose");
 
 const variantsSchema = new mongoose.Schema(
     {
-        // product_id: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: "Products",
-        //     required: true,
-        // },
-        // category_id: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: "Categories",
-        //     required: true,
-        // },
-        // subcategory_id: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: "Subcategories",
-        //     required: true,
-        // },
+        product_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Products",
+            required: true,
+        },
+        category_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Categories",
+            required: true,
+        },
+        subcategory_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Subcategories",
+            required: true,
+        },
         product_image: [
                 {
                 public_id :String,
                 url : String,
                 }
         ],
-        // attributes: {
-        //     type: Object,
-        //     of: String,
-        //     required: true,
-        // },
+        attributes: {
+            type: Object,
+            of: String,
+            required: true,
+        },
         is_active: {
             type: Boolean,
             default: true,

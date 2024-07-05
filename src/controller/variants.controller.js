@@ -53,7 +53,7 @@ const getVarients = async (req, res) => {
 
 const addVarients = async (req, res) => {
     try {
-
+        console.log(req.files, res.files);
         const fileRes = await Promise.all(req.files.map((v) => fileupload("pro_img", v.path)))
         console.log(fileRes);
         const product_image = fileRes.map((v) => ({
