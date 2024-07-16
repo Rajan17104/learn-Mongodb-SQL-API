@@ -17,16 +17,14 @@ const variantsSchema = new mongoose.Schema(
             ref: "Subcategories",
             required: true,
         },
-        product_image: [
-                {
+        pro_img: [ {
                 public_id :String,
                 url : String,
-                }
-        ],
+                }],
         attributes: {
             type: Object,
             of: String,
-            required: true,
+            required: false,
         },
         is_active: {
             type: Boolean,

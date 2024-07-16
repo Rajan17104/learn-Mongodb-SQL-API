@@ -15,12 +15,12 @@ router.get("/list-varients/:varients_id",
 );
 
 router.post("/add-varients",
-    upload.array('pro_img', 5),
+    upload.array('pro_img', 12),
     variantController.addVarients
 );
 
 router.put("/update-varients/:varients_id",
-    upload.array('pro_img', 5),
+    upload.array('pro_img', 12),
     variantController.updateVarients
 
 );

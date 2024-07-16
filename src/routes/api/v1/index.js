@@ -14,6 +14,9 @@ router.use("/products",productRouter);
 const variantRouter = require("./variants.routs")
 router.use("/variants",variantRouter);
 
+const salespeopleRouter = require("./salespeople.routes")
+router.use("/salespeople",salespeopleRouter)
+
 module.exports = router;
 
 

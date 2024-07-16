@@ -54,15 +54,15 @@ const getVarients = async (req, res) => {
 const addVarients = async (req, res) => {
     try {
         console.log(req.files, res.files);
-        const fileRes = await Promise.all(req.files.map((v) => fileupload("pro_img", v.path)))
+        const fileRes = await Promise.all(req.files.map((v) => fileupload("pro_img",v.path)))
         console.log(fileRes);
-        const product_image = fileRes.map((v) => ({
+        const pro_img = fileRes.map((v) => ({
             public_id: v.public_id,
             url: v.url
         }));
         const newData = {
             ...req.body,
-            product_image
+            pro_img
         }
 
         const varients = await Varients.create(newData);
@@ -101,13 +101,13 @@ const updateVarients = async (req, res) => {
         if (req.files) {
 
             const fileRes = await Promise.all(req.files.map((v) => fileupload("pro_img", v.path)))
-            const product_image = fileRes.map((v) => ({
+            const pro_img = fileRes.map((v) => ({
                 public_id: v.public_id,
                 url: v.url
             }));
             newData = {
                 ...req.body,
-                product_image
+                pro_img
             }
 
         } else {
