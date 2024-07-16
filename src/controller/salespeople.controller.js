@@ -51,7 +51,60 @@ const addSalespeople = async (sname,city,comm) => {
     }
 }
 
+const updateSalespeople = async ([update]) => {
+    try {
+        const updatesalespeople = await salsepeople.updateSalespeople(update);
+
+        if (!updatesalespeople || updatesalespeople.length === 0) {
+            res.status(404).json({
+                message: "No salespeople data found",
+                success: false,
+            })
+        }
+
+        res.status(200).json({
+            message: "Salespeople data update successfully",
+            success: true,
+            data: updatesalespeople,
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+            success: false
+        })
+    }
+}
+
+const deleteSalespeople = async(id) => {
+    try {
+        const deletesalespeople = await salsepeople.deleteSalespeople(id);
+
+        if (!deletesalespeople || deletesalespeople.length === 0) {
+            res.status(404).json({
+                message: "No salespeople data found",
+                success: false,
+            })
+        }
+
+        res.status(200).json({
+            message: "Salespeople data delete successfully",
+            success: true,
+            data: deletesalespeople,
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+            success: false
+        })
+    }
+}
+
+
 module.exports = {
     listSalespeople,
-    addSalespeople
+    addSalespeople,
+    deleteSalespeople,
+    updateSalespeople
 }

@@ -14,4 +14,13 @@ router.post(
     salsepeopleController.addSalespeople
 )
 
+router.put(
+    '/update-salespeople',
+    salsepeopleController.updateSalespeople
+)
+router.delete(
+    '/delete-salespeople',
+    salsepeopleController.deleteSalespeople
+)
+
 module.exports = router;
