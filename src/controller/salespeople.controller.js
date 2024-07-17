@@ -26,10 +26,11 @@ const listSalespeople = async (req, res) => {
     }
 }
 
-const addSalespeople = async (sname,city,comm) => {
+const addSalespeople = async (req ,res) => {
     try {
+        const { sname,city,comm} = req.body;
         const addsalespeople = await salsepeople.addSalespeople(sname,city,comm);
-
+        console.log(addsalespeople);
         if (!addsalespeople || addsalespeople.length === 0) {
             res.status(404).json({
                 message: "No salespeople data found",
@@ -51,9 +52,13 @@ const addSalespeople = async (sname,city,comm) => {
     }
 }
 
-const updateSalespeople = async ([update]) => {
+const update = async (req,res) => {
+    const { snum } = req.params;
+    const { sname,city,comm } = req.body;
     try {
-        const updatesalespeople = await salsepeople.updateSalespeople(update);
+        console.log(snum);
+        const updatesalespeople = await salsepeople.updateSalespeople(sname,city,comm,snum);
+        console.log(updatesalespeople);
 
         if (!updatesalespeople || updatesalespeople.length === 0) {
             res.status(404).json({
@@ -62,7 +67,7 @@ const updateSalespeople = async ([update]) => {
             })
         }
 
-        res.status(200).json({
+        res.status(201).json({
             message: "Salespeople data update successfully",
             success: true,
             data: updatesalespeople,
@@ -76,9 +81,11 @@ const updateSalespeople = async ([update]) => {
     }
 }
 
-const deleteSalespeople = async(id) => {
+const deleteSalespeople = async(req, res) => {
+    const {snum} = req.params
     try {
-        const deletesalespeople = await salsepeople.deleteSalespeople(id);
+        console.log(snum,"dvasv");
+        const deletesalespeople = await salsepeople.deleteSalespeople(snum);
 
         if (!deletesalespeople || deletesalespeople.length === 0) {
             res.status(404).json({
@@ -106,5 +113,5 @@ module.exports = {
     listSalespeople,
     addSalespeople,
     deleteSalespeople,
-    updateSalespeople
+    update
 }

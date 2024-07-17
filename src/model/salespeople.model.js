@@ -11,31 +11,31 @@ const getSalespeople = async () => {
     }
 }
 
-const addSalespeople = async ([sname,city,comm]) => {
+const addSalespeople = async (sname,city,comm) => {
     try {
-        const [data] = await pool.query("INSERT INTO `salespeople`(`sname`, `city`, `comm`) VALUES (?,?,?)",[sname,city,comm])
-        console.log(data);
-        return data
+        const [result] = await pool.query("INSERT INTO `salespeople`(`sname`, `city`, `comm`) VALUES (?,?,?)",[sname,city,comm])
+        console.log(result);
+        return {snum:result.insertId,sname,city,comm};
     } catch (error) {
         console.log(error);
         throw new Error('Internal serever error')
     }
 }
-const updateSalespeople = async (update) => {
+const updateSalespeople = async (sname,city,comm,snum) => {
     try {
-        const [data] = await pool.query("UPDATE INTO `salespeople`(`sname`) VALUES (?)",[update])
-        console.log(data);
-        return data
+        const [result] = await pool.query("UPDATE `salespeople` SET sname= ?, city= ?, comm=? WHERE snum = ?",[sname,city,comm,snum])
+        console.log(result);
+        console.log({snum,sname,city,comm},"sscsc");
+        return {snum,sname,city,comm}
     } catch (error) {
         console.log(error);
         throw new Error('Internal serever error')
     }
 }
-const deleteSalespeople = async (id) => {
+const deleteSalespeople = async (snum) => {
     try {
-        const [data] = await pool.query(`SELECT * FROM salespeople WHERE ${id} `)
-        console.log(data);
-        return data
+         await pool.query(`DELETE FROM salespeople WHERE snum = ? `,[snum])
+        return {snum}
     } catch (error) {
         console.log(error);
         throw new Error('Internal serever error')

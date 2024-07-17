@@ -15,11 +15,11 @@ router.post(
 )
 
 router.put(
-    '/update-salespeople',
-    salsepeopleController.updateSalespeople
+    '/update-salespeople/:snum',
+    salsepeopleController.update
 )
 router.delete(
-    '/delete-salespeople',
+    '/delete-salespeople/:snum',
     salsepeopleController.deleteSalespeople
 )
 
