@@ -17,6 +17,10 @@ router.use("/variants",variantRouter);
 const salespeopleRouter = require("./salespeople.routes")
 router.use("/salespeople",salespeopleRouter)
 
+
+const userRouter = require("./user.route")
+router.use("/user",userRouter)
+
 module.exports = router;
 
 
