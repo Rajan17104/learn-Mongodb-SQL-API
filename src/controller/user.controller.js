@@ -17,13 +17,13 @@ const generateTokens = async (id) => {
         const accessToken = jwt.sign(
             { _id: user._id, role: user.role },
             'QWERTYUIOP',
-            { expiresIn: '1h' }
+            { expiresIn: '1 hour' }
         );
 
         const refreshToken = jwt.sign(
             { _id: user._id },
             'QWERTYUIOPt',
-            { expiresIn: '2d' }
+            { expiresIn: '2 days' }
         );
 
         user.refreshToken = refreshToken;
@@ -83,13 +83,22 @@ const registerUser = async (req, res) => {
 
         const { email, password } = req.body
 
+        const userf = await Users.findOne({
+            $or: [{email}]
+        })
+
+        if (userf) {
+            res.status(409).json({
+                success: false,
+                message: 'user already exists'
+            })
+        }
+
         const bcryptpassword = await bcrypt.hash(password, 10)
 
         console.log(req.body);
         const user = await Users.create({ ...req.body, password: bcryptpassword });
 
-
-        console.log(user);
 
         if (!user) {
             res.status(409).json({
@@ -108,7 +117,7 @@ const registerUser = async (req, res) => {
         const userF = await Users.findById(user._id).select("-password")
 
         res.status(201).json({
-            success: false,
+            success: true,
             message: 'user data created.',
             data: userF
         })
@@ -133,7 +142,7 @@ const loginUser = async (req, res) => {
             });
         }
 
-        console.log(user.password, password, "ssss");
+        // console.log(user.password, password, "ssss");
         const isMatch = await bcrypt.compare(password, user.password);
         console.log(isMatch, "isMatch");
 
@@ -144,9 +153,11 @@ const loginUser = async (req, res) => {
             });
         }
 
-        const { accessToken, refreshToken } = await generateTokens(user.id);
+        const { accessToken, refreshToken } = await generateTokens(user._id);
 
-        const userF = await Users.findById(user._id).select("-password", "-refreshToken");
+        console.log(user._id,"scSCzxcsAxc");
+        const userF = await Users.findById(user._id).select("-password -refreshToken");
+        console.log(userF,"userF");
 
         const option = {
             httpOnly: true,
@@ -159,11 +170,7 @@ const loginUser = async (req, res) => {
             .json({
                 success: true,
                 message: 'User logged in successfully.',
-                data: {
-                    user: {
-                        ...userF.toJSON()
-                    }
-                }
+                data: {...userF.toObject(),accessToken}
             });
 
     } catch (error) {
@@ -174,6 +181,10 @@ const loginUser = async (req, res) => {
         });
     }
 };
+
+const relogin = async(req ,res) =>{
+
+}
 
 
 
