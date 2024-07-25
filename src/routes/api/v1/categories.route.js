@@ -1,9 +1,11 @@
 const express  = require("express");
 const { categoriesControler } = require("../../../controller");
+const auth = require("../../../middleware/auth");
 const router = express.Router();
 
 router.get(
     "/list-categories",
+    auth(['manger',"admin"]),
     categoriesControler.listCategories
 )
 

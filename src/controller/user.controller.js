@@ -14,8 +14,11 @@ const generateTokens = async (id) => {
             throw new Error('User not found.');
         }
 
-        const accessToken = jwt.sign(
-            { _id: user._id, role: user.role },
+        const accessToken = jwt.sign({ 
+            _id: user._id,
+            role: user.role,
+            expiresIn: '1 hour'
+         },
             'QWERTYUIOP',
             { expiresIn: '1 hour' }
         );
@@ -183,7 +186,60 @@ const loginUser = async (req, res) => {
 };
 
 const relogin = async(req ,res) =>{
-
+    try {
+        console.log("req.body :::", req.cookies.refreshToken);
+    
+        const checkToken = await jwt.verify(req.cookies.refreshToken, "QWERTYUIOPt");
+      
+        console.log(checkToken);
+      
+        if (!checkToken) {
+          return res.status(400).json({
+            success: false,
+            message: "Token expired",
+          });
+        }
+      
+        const user = await Users.findById(checkToken._id);
+        console.log("user::::: ", user);
+      
+        if (!user) {
+          return res.status(400).json({
+            success: false,
+            message: "Invalid Token",
+          });
+        }
+    
+        if (req.cookies.refreshToken != user.toObject().refreshToken) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid user Token",
+              });
+        }
+        const data = await generateTokens(user._id);
+    
+        const option = {
+          httpOnly: true,
+          secure: true,
+        };
+    
+        res
+          .status(200)
+          .cookie("accsesstoken", data.accessToken, option)
+          .cookie("refreshToken", data.refreshToken, option)
+          .json({
+            success: true,
+            message: "login success",
+            data: data.accsesstoken
+          });
+    
+     
+      } catch (error) {
+        res.status(500).json({
+          success: false,
+          message: "Internal server error: " + error.message,
+        });
+      }
 }
 
 
@@ -247,6 +303,7 @@ module.exports = {
     // listuser,
     registerUser,
     loginUser,
+    relogin
     // updateuser,
     // deleteuser,
     // getuser,
