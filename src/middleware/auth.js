@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
+const Users = require('../model/users.model');
 
-const auth = () => async (req, res, next) => {
+const auth = (role = []) => async (req, res, next) => {
     //Authatication of user
     try {
         const token = req.cookies.accessToken || req.header("Authorization")?.replace("Bearer ", "");
@@ -14,15 +15,24 @@ const auth = () => async (req, res, next) => {
                 message: "Please authenticate.",
             })
         }
-
         try {
             const checkToken = await jwt.verify(token, "QWERTYUIOP");
-
             console.log(checkToken);
 
-            res.status(200).json({
-                message: "Autheticated successfully"
+            const user = await Users.findById(checkToken._id);
+
+            if(!role.some((v)=>v === user.role)){
+                return res.status(400).json({
+                    success: false,
+                    error: "You are not authorized to access this resource.",
+                    message: "You are not authorized to access this resource."
             })
+        }
+            req.user = user;
+            next();
+            // res.status(200).json({
+            //     message: "Autheticated successfully"
+            // })
 
         } catch (error) {
             return res.status(400).json({

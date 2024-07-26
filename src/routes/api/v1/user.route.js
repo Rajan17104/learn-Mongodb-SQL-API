@@ -25,6 +25,10 @@ router.post("/relogin-user",
     usersController.loginUser
 );
 
+router.post("/logout-user",
+    usersController.logoutUser
+);
+
 // router.put("/update-user/:user_id",
 //     variantController.updateuser
 

@@ -242,6 +242,42 @@ const relogin = async(req ,res) =>{
       }
 }
 
+const logoutUser = async (req, res) => {
+    try {
+        const id = req.body._id
+        
+        const user = await Users.findByIdAndUpdate(id,
+            { $unset: { refreshToken: 1 } },
+            { new: true }
+        );
+        console.log(user);
+
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid user.'
+            });
+        }
+
+        res
+            .status(200)
+            .clearCookie('accessToken', { httpOnly: true, secure: true })
+            .clearCookie('refreshToken', { httpOnly: true, secure: true })
+            .json({
+                success: true,
+                message: 'User logged out successfully.'
+            });
+    } catch (error) {
+        console.error('Logout error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error: ' + error.message
+        });
+    }
+};
+
+
+
 
 
 // const updateuser = async (req,res) => {
@@ -303,7 +339,8 @@ module.exports = {
     // listuser,
     registerUser,
     loginUser,
-    relogin
+    relogin,
+    logoutUser
     // updateuser,
     // deleteuser,
     // getuser,
